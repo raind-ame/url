@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡易縮網址生成器</title>
+</head>
+<body>
+    <script>
+        // 載入 JSON 檔案並處理
+        fetch('urls.json')
+            .then(response => response.json())
+            .then(data => {
+                const urlMap = data; // 將 JSON 內容儲存到 urlMap
+
+                // 簡單的重定向邏輯
+                const path = window.location.pathname.split("/").pop(); // 獲取路徑中的縮網址ID
+                if (path && urlMap[path]) {
+                    window.location.href = urlMap[path]; // 重定向到長網址
+                } else {
+                    console.log("網址未找到！");
+                }
+            })
+            .catch(error => console.error("載入 JSON 檔案時出錯：", error));
+    </script>
+</body>
+</html>
